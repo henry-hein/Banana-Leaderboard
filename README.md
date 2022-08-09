@@ -19,7 +19,7 @@ Here are five userIds in top 10 to test as an input:
 `zRa6fy2hvtYWXkKI3jKoASOqmd32` `Rank 8`
 `zOKzuWGBUVWRrTxyEHgTKc4gin32` `Rank 10`
 
-Here are five userIds in outside top 10 to test as an input:
+Here are five userIds outside top 10 to test as an input:
 
 `zRC7GU6alOTXW94wUWJt5jZaHgz2`
 `zR1E2SDs2If6cBThAx97lDsnVPG3`
