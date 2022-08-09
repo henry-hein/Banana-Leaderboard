@@ -38,7 +38,7 @@ const App = () => {
     // If uid matches searchInput returns the found object sortDescending Array
     const findPersonById = sortDescending.find((person) => {
       if(searchInput !== person.uid){
-        return;
+        setCurrentUserId(false);
       }
       return person.uid === searchInput;
     });
@@ -49,6 +49,8 @@ const App = () => {
       setRenderArr(top10BananasCount);
       setCurrentUserId(findPersonById?.uid);
     } 
+    setRenderArr(top10BananasCount);
+    setCurrentUserId(findPersonById?.uid);
   }
  
   return (
@@ -74,7 +76,7 @@ const App = () => {
         <tbody>
           {renderArr.map((data) => {
             return (
-                <tr key={data.uid}>
+                <tr key={data.uid} className={data.uid === currentUserId? "active" : "inactive"}>
                   <td>{data.name}</td>
                   <td>{data.rank}</td>
                   <td>{data.bananas}</td>
