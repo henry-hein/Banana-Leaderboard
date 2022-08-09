@@ -42,7 +42,7 @@ const App = () => {
       }
       return person.uid === searchInput;
     });
-    //if person banana count rank is more than 10 remove rank 10 and replace with found person
+
     if(findPersonById?.rank > 10){
       top10BananasCount.pop();
       top10BananasCount.push(findPersonById);
@@ -64,6 +64,11 @@ const App = () => {
           Search
         </button>
       </form>
+      {!currentUserId && (
+        <div className="alert alert-danger" role="alert">
+          Current user id does not exist! Please specify an existing user id!
+        </div>
+      )}
       <table className="table">
         <thead>
           <tr>
