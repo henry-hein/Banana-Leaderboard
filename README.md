@@ -1,10 +1,10 @@
 # Banana LeaderBoard React App
 
-In the project diretory, run
+Repo comes with node_module folder. Simply run
 
 ### `npm start`
 
-to start project.
+in the project directory to start project.
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
