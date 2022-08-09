@@ -5,6 +5,8 @@ import Leaderboard from './data/leaderboard.json';
 const App = () => {
 
   const [searchInput, setSearchInput] = useState('');
+  const [renderArr, setRenderArr] = useState([]);
+  const [currentUserId, setCurrentUserId] = useState(true);
  
   // Sort converts number into string so instead we execute compareFunction. Thereby, comparing return value of the compare function instead, which in our case is typeOf Number.
   // If a > b sort a after b
@@ -40,7 +42,13 @@ const App = () => {
       }
       return person.uid === searchInput;
     });
-    console.log(findPersonById);
+    //if person banana count rank is more than 10 remove rank 10 and replace with found person
+    if(findPersonById?.rank > 10){
+      top10BananasCount.pop();
+      top10BananasCount.push(findPersonById);
+      setRenderArr(top10BananasCount);
+      setCurrentUserId(findPersonById?.uid);
+    } 
   }
  
   return (
@@ -64,13 +72,13 @@ const App = () => {
           </tr>
         </thead>
         <tbody>
-          {top10BananasCount.map((data) => {
+          {renderArr.map((data) => {
             return (
                 <tr key={data.uid}>
                   <td>{data.name}</td>
                   <td>{data.rank}</td>
                   <td>{data.bananas}</td>
-                  <td>Rank</td>
+                  <td>{data.uid === currentUserId ? 'Yes': 'No'}</td>
                 </tr>
             );
           })}          
