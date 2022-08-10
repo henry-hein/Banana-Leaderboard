@@ -1,6 +1,6 @@
 # Banana LeaderBoard React App
 
-Start: Clone the repository.
+##Start: Clone the repository.
 
 Repo comes with node_module folder. Simply run
 
