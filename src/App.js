@@ -8,19 +8,17 @@ const App = () => {
   const [renderArr, setRenderArr] = useState([]);
   const [currentUserId, setCurrentUserId] = useState(true);
  
-  // Sort converts number into string so instead we execute compareFunction. Thereby, comparing return value of the compare function instead, which in our case is typeOf Number.
-  // If a > b sort a after b
-  // If b > a sort b after a
-  // If a = b do not change order
-  // return b-a to sort in descending order
-  // here we sort by numbers of bananas
-
-  const sortDescending = Object.values(Leaderboard).splice('').sort((a, b) => {
-    return b.bananas - a.bananas;
+  // Here we sort array of objects by number of bananas and create sortDescending array
+  // If b - a < 0, b is bigger than a, therefore, b comes first
+  // If b - a > 0, b is smaller than a, therefore, a comes first
+  // if b - a = 0, position remains same
+  // sort by numbers of most bananas to fewest bananas
+  const sortDescending = Object.values(Leaderboard).sort((currPos, nextPos) => {
+    return nextPos.bananas - currPos.bananas;
   });
 
-  // Modified sortDescending Array of objects and inserted a rank property
-  const rankedArray = () => {
+  // This self-invoked function modifies sortDescending array and adds rank to sorted Array of objects by bananas count.
+  (() => {
     let rank = 1;
     for (let i = 0; i < sortDescending.length; i++) {
     // increase rank only if current bananas are less than previous
@@ -29,13 +27,29 @@ const App = () => {
     }
       sortDescending[i].rank = rank;
     } 
-  }
-  rankedArray(); //sortDescending is ranked
+  })();
+
+  // (() => {
+  //   let rank = 1;
+  //   let count = 0;
+  //   for (let i = 0; i < sortDescending.length; i++) {
+  //   // increase rank only if current bananas are less than previous
+  //   if (i > 0 && sortDescending[i].bananas < sortDescending[i - 1].bananas) {
+  //     rank++;
+  //     rank = rank + count;
+  //     count = 0;
+  //   } else if(i > 0 && sortDescending[i].bananas === sortDescending[i - 1].bananas){
+  //     count++;
+  //   }
+  //     sortDescending[i].rank = rank;
+  //   } 
+  // })();
 
   const top10BananasCount = [...sortDescending].slice(0,10); //Create new array limited to people with top 10 bananas
 
   const onClick = () => {
     // If uid matches searchInput returns the found object sortDescending Array
+    // Otherwise returns undefined
     const findPersonById = sortDescending.find((person) => {
       if(searchInput !== person.uid){
         setCurrentUserId(false);
@@ -56,8 +70,8 @@ const App = () => {
   return (
     <div className="container">
       <form className="input-group mb-3 mt-5">
-        <input type="text" className="form-control" placeholder="Insert User ID" onChange={ (e) => {
-            setSearchInput(e.target.value);
+        <input type="text" className="form-control" placeholder="Insert User ID" onChange={({ target: userIdInput }) => {
+            setSearchInput(userIdInput.value);
           }}
         />
         <button className="btn btn-outline-primary" type="button" onClick={onClick}>
